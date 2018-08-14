@@ -1,0 +1,71 @@
+swagger: "2.0"
+info:
+  description: "FluxNotes Treatment Options Rest Client"
+  version: "1.0.0"
+  title: "FluxNotes Treatment Options Rest Client"
+host: "localhost:3001"
+basePath: "/api"
+schemes:
+- "http"
+paths:
+  /treatmentOptions:
+    get:
+      summary: "Get treatment options given filters"
+      description: "Return treatment options for the following filters"
+      operationId: "findTreatmentOptionsByPatientStats"
+      produces: 
+        - "application/xml"
+        - "application/json"
+      parameters: 
+        - name: "Disease"
+          in: "query"
+          description: "disease filter"
+          type: "string"
+          required: true
+        - name: "Race"
+          in: "query"
+          description: "race filter"
+          type: "string"
+        - name: "dxGrade"
+          in: "query"
+          description: "grade of disease filter"
+          type: "string"
+      responses:
+        200:
+          description: "array of treatment options for given filters"
+          schema: 
+            type: "array"
+            items:
+              $ref: '#/definitions/TreatmentOptions'
+        400:
+          description: "Invalid filter stats applied"
+        404:
+          description: "no treatment options found for filters"
+
+definitions:
+  TreatmentOptions:
+    type: "object"
+    properties:
+      disease:
+        type: "string"
+        description: "disease filter"
+      race:
+        type: "string"
+        description: "race filter"
+      isAlive:
+        type: "string"
+        description: "dead or alive"
+      survivalMonths:
+        type: "integer"
+        format: "int32"
+        description: "survival time in months"
+      dxGrade: 
+        type: "string"
+        description: "grade of the disease to filter"
+      treatOptions:
+        type: "string"
+        description: "treatment option recieved"
+
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
