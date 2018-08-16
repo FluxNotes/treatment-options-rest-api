@@ -49,13 +49,68 @@
               "items": {
                 "$ref": "#/definitions/TreatmentOptions"
               }
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*",
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
             }
           },
           "400": {
-            "description": "Invalid filter stats applied"
+            "description": "Invalid filter stats applied",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*",
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
+            }
           },
           "404": {
-            "description": "no treatment options found for filters"
+            "description": "no treatment options found for filters",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*",
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
+            }
+          }
+        }
+      },
+      "options": {
+        "responses": {
+          "200": {
+            "description": "Successful Data Retrivial",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*",
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid Filter applied",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*",
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "type": "string",
+                "default": "*",
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
+            }
           }
         }
       }
