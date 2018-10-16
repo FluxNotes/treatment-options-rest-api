@@ -1,40 +1,103 @@
-swagger: "2.0"
+swagger: '2.0'
 info:
-  description: "FluxNotes Treatment Options Rest Client"
-  version: "1.0.0"
-  title: "FluxNotes Treatment Options Rest Client"
-host: "localhost:3001"
-basePath: "/api"
+  description: FluxNotes Treatment Options Rest Client
+  version: 1.0.1
+  title: FluxNotes Treatment Options Rest Client
+host: 'localhost:3001'
+basePath: /api
 schemes:
-- "http"
+  - http
 paths:
   /treatmentOptions:
     get:
-      summary: "Get treatment options given filters"
-      description: "Return treatment options for the following filters"
-      operationId: "findTreatmentOptionsByPatientStats"
-      produces: 
-        - "application/xml"
-        - "application/json"
-      parameters: 
-        - name: "Disease"
-          in: "query"
-          description: "disease filter"
-          type: "string"
+      summary: Get treatment options given filters
+      description: Return treatment options for the following filters
+      operationId: findTreatmentOptionsByPatientStats
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: disease
+          in: query
+          description: disease filter
+          type: string
           required: true
-        - name: "Race"
-          in: "query"
-          description: "race filter"
-          type: "string"
-        - name: "dxGrade"
-          in: "query"
-          description: "grade of disease filter"
-          type: "string"
+        - name: Race
+          in: query
+          description: race filter
+          type: string
+        - name: Dx-Grade
+          in: query
+          description: grade of disease filter
+          type: string
+        - name: ageAtDiagnosis
+          in: query
+          description: age at diagnosis filter
+          type: string
+        - name: gender
+          in: query
+          description: patient gender filter
+          type: string
+        - name: stageAtDiagnosis
+          in: query
+          description: stage at diagnosis filter
+          type: string
+        - name: mitosisCount
+          in: query
+          description: mitosis count filter
+          type: string
+        - name: cancerSite
+          in: query
+          description: cancer site filer
+          type: string
+        - name: surgery
+          in: query
+          description: surgery recieved filter
+          type: string
+        - name: pastTreatments
+          in: query
+          description: Treatments recieved in past
+          type: array
+          collectionFormat: csv
+          items:
+            type: string
+        - name: Hemoglobin
+          in: query
+          description: lab result for hemoglobin filter
+          type: string
+        - name: Albumin
+          in: query
+          description: lab result for albumin filter
+          type: string
+        - name: CD117/KIT
+          in: query
+          description: immunohistochemical finding
+          type: string
+        - name: CD34
+          in: query
+          description: immunohistochemical finding
+          type: string
+        - name: α-Smooth muscle actin
+          in: query
+          description: immunohistochemical finding
+          type: string
+        - name: desmin
+          in: query
+          description: immunohistochemical finding
+          type: string
+        - name: S-100
+          in: query
+          description: immunohistochemical finding
+          type: string
+        - name: Ki67 index
+          in: query
+          description: immunohistochemical finding
+          type: string
       responses:
-        200:
-          description: "array of treatment options for given filters"
-          schema: 
-            type: "array"
+        '200':
+          description: array of treatment options for given filters
+          schema:
+            type: array
             items:
               $ref: '#/definitions/TreatmentOptions'
           headers:
@@ -47,20 +110,8 @@ paths:
                 according to the HTTP spec, browsers *WILL NOT* send cookies if
                 this header is `*`, regardless of what you set
                 `Access-Control-Allow-Credentials` to.
-        400:
-          description: "Invalid filter stats applied"
-          headers: 
-            Access-Control-Allow-Origin:
-              type: string
-              default: '*'
-              description: >
-                Setting this header to `*` allows all origins. This is handy for
-                public REST APIs that don't require authentication. But,
-                according to the HTTP spec, browsers *WILL NOT* send cookies if
-                this header is `*`, regardless of what you set
-                `Access-Control-Allow-Credentials` to.
-        404:
-          description: "no treatment options found for filters"
+        '400':
+          description: Invalid filter stats applied
           headers:
             Access-Control-Allow-Origin:
               type: string
@@ -71,10 +122,21 @@ paths:
                 according to the HTTP spec, browsers *WILL NOT* send cookies if
                 this header is `*`, regardless of what you set
                 `Access-Control-Allow-Credentials` to.
-              
+        '404':
+          description: no treatment options found for filters
+          headers:
+            Access-Control-Allow-Origin:
+              type: string
+              default: '*'
+              description: >
+                Setting this header to `*` allows all origins. This is handy for
+                public REST APIs that don't require authentication. But,
+                according to the HTTP spec, browsers *WILL NOT* send cookies if
+                this header is `*`, regardless of what you set
+                `Access-Control-Allow-Credentials` to.
     options:
       responses:
-        200:
+        '200':
           description: Successful Data Retrivial
           headers:
             Access-Control-Allow-Origin:
@@ -86,7 +148,7 @@ paths:
                 according to the HTTP spec, browsers *WILL NOT* send cookies if
                 this header is `*`, regardless of what you set
                 `Access-Control-Allow-Credentials` to.
-        400:
+        '400':
           description: Invalid Filter applied
           headers:
             Access-Control-Allow-Origin:
@@ -98,7 +160,7 @@ paths:
                 according to the HTTP spec, browsers *WILL NOT* send cookies if
                 this header is `*`, regardless of what you set
                 `Access-Control-Allow-Credentials` to.
-        404:
+        '404':
           description: Not found
           headers:
             Access-Control-Allow-Origin:
@@ -110,31 +172,20 @@ paths:
                 according to the HTTP spec, browsers *WILL NOT* send cookies if
                 this header is `*`, regardless of what you set
                 `Access-Control-Allow-Credentials` to.
-
 definitions:
   TreatmentOptions:
-    type: "object"
+    type: object
     properties:
-      disease:
-        type: "string"
-        description: "disease filter"
-      race:
-        type: "string"
-        description: "race filter"
       isAlive:
-        type: "string"
-        description: "dead or alive"
+        type: string
+        description: dead or alive
       survivalMonths:
-        type: "integer"
-        format: "int32"
-        description: "survival time in months"
-      dxGrade: 
-        type: "string"
-        description: "grade of the disease to filter"
+        type: integer
+        format: int32
+        description: survival time in months
       treatOptions:
-        type: "string"
-        description: "treatment option recieved"
-
+        type: string
+        description: treatment option recieved
 externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  description: Find out more about Swagger
+  url: 'http://swagger.io'

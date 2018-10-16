@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "description": "FluxNotes Treatment Options Rest Client",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "title": "FluxNotes Treatment Options Rest Client"
   },
   "host": "localhost:3001",
@@ -22,7 +22,7 @@
         ],
         "parameters": [
           {
-            "name": "Disease",
+            "name": "disease",
             "in": "query",
             "description": "disease filter",
             "type": "string",
@@ -35,9 +35,103 @@
             "type": "string"
           },
           {
-            "name": "dxGrade",
+            "name": "Dx-Grade",
             "in": "query",
             "description": "grade of disease filter",
+            "type": "string"
+          },
+          {
+            "name": "ageAtDiagnosis",
+            "in": "query",
+            "description": "age at diagnosis filter",
+            "type": "string"
+          },
+          {
+            "name": "gender",
+            "in": "query",
+            "description": "patient gender filter",
+            "type": "string"
+          },
+          {
+            "name": "stageAtDiagnosis",
+            "in": "query",
+            "description": "stage at diagnosis filter",
+            "type": "string"
+          },
+          {
+            "name": "mitosisCount",
+            "in": "query",
+            "description": "mitosis count filter",
+            "type": "string"
+          },
+          {
+            "name": "cancerSite",
+            "in": "query",
+            "description": "cancer site filer",
+            "type": "string"
+          },
+          {
+            "name": "surgery",
+            "in": "query",
+            "description": "surgery recieved filter",
+            "type": "string"
+          },
+          {
+            "name": "pastTreatments",
+            "in": "query",
+            "description": "Treatments recieved in past",
+            "type": "array",
+            "collectionFormat": "csv",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Hemoglobin",
+            "in": "query",
+            "description": "lab result for hemoglobin filter",
+            "type": "string"
+          },
+          {
+            "name": "Albumin",
+            "in": "query",
+            "description": "lab result for albumin filter",
+            "type": "string"
+          },
+          {
+            "name": "CD117/KIT",
+            "in": "query",
+            "description": "immunohistochemical finding",
+            "type": "string"
+          },
+          {
+            "name": "CD34",
+            "in": "query",
+            "description": "immunohistochemical finding",
+            "type": "string"
+          },
+          {
+            "name": "α-Smooth muscle actin",
+            "in": "query",
+            "description": "immunohistochemical finding",
+            "type": "string"
+          },
+          {
+            "name": "desmin",
+            "in": "query",
+            "description": "immunohistochemical finding",
+            "type": "string"
+          },
+          {
+            "name": "S-100",
+            "in": "query",
+            "description": "immunohistochemical finding",
+            "type": "string"
+          },
+          {
+            "name": "Ki67 index",
+            "in": "query",
+            "description": "immunohistochemical finding",
             "type": "string"
           }
         ],
@@ -120,14 +214,6 @@
     "TreatmentOptions": {
       "type": "object",
       "properties": {
-        "disease": {
-          "type": "string",
-          "description": "disease filter"
-        },
-        "race": {
-          "type": "string",
-          "description": "race filter"
-        },
         "isAlive": {
           "type": "string",
           "description": "dead or alive"
@@ -136,10 +222,6 @@
           "type": "integer",
           "format": "int32",
           "description": "survival time in months"
-        },
-        "dxGrade": {
-          "type": "string",
-          "description": "grade of the disease to filter"
         },
         "treatOptions": {
           "type": "string",
