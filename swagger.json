@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "version": "1.0.0",
+    "version": "0.1.0",
     "title": "Swagger TreatOptions",
     "description": "Treatment Options REST API",
     "contact": {
