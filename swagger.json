@@ -1,14 +1,18 @@
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
-    "description": "Treatment Options Rest API",
     "version": "1.0.0",
-    "title": "Treatment Options Rest API"
+    "title": "Swagger TreatOptions",
+    "description": "Treatment Options REST API",
+    "contact": {
+      "url": "http://standardhealthrecord.org",
+      "email": "gquinn@mitre.org"
+    }
   },
-  "host": "localhost:3001",
-  "basePath": "/api",
-  "schemes": [
-    "http"
+  "servers": [
+    {
+      "url": "http://localhost:3001/api"
+    }
   ],
   "paths": {
     "/treatmentOptions": {
@@ -16,94 +20,44 @@
         "summary": "Get treatment options given filters",
         "description": "Return treatment options for the following filters",
         "operationId": "findTreatmentOptionsByCriteria",
-        "produces": [
-          "application/json"
-        ],
         "parameters": [
           {
             "name": "Disease",
             "in": "query",
-            "description": "disease filter",
-            "type": "string",
-            "required": true
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "Criteria",
             "in": "query",
-            "description": "Criteria as name/value pairs on object.",
-            "type": "object",
-            "additionalProperties": {
-                "$ref": "#/definitions/Criteria"
+            "required": false,
+            "description": "Criteria as name/value pair on object",
+            "schema": {
+              "$ref": "#/components/schemas/Criteria"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "array of treatment options for given filters",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/TreatmentOptions"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TreatmentOptions"
+                  }
+                }
               }
             },
             "headers": {
               "Access-Control-Allow-Origin": {
-                "type": "string",
-                "default": "*",
-                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid filter stats applied",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "type": "string",
-                "default": "*",
-                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
-              }
-            }
-          },
-          "404": {
-            "description": "no treatment options found for filters",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "type": "string",
-                "default": "*",
-                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
-              }
-            }
-          }
-        }
-      },
-      "options": {
-        "responses": {
-          "200": {
-            "description": "Successful Data Retrivial",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "type": "string",
-                "default": "*",
-                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid Filter applied",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "type": "string",
-                "default": "*",
-                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "headers": {
-              "Access-Control-Allow-Origin": {
-                "type": "string",
-                "default": "*",
+                "schema": {
+                  "type": "string",
+                  "default": "*"
+                },
                 "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
               }
             }
@@ -112,24 +66,25 @@
       }
     }
   },
-  "definitions": {
-    "Criteria": {
-      "type": "object",
-      "properties": {
+  "components": {
+    "schemas": {
+      "Criteria": {
+        "type": "object",
+        "properties": {
           "AgeAtDiagnosis": {
-              "type": "integer"
+            "type": "integer"
           },
           "Gender": {
-              "type": "string"
+            "type": "string"
           },
           "Race": {
-              "type": "string"
+            "type": "string"
           }
-      },
-      "additionalProperties": {
+        },
+        "additionalProperties": {
           "type": "string"
-      },
-      "example": {
+        },
+        "example": {
           "AgeAtDiagnosis": 54,
           "Gender": "male",
           "Race": "white",
@@ -137,41 +92,38 @@
           "PDGFRA": "negative",
           "Grade": "3",
           "Stage": "IIIA"
-      }
-    },
-    "TreatmentOptions": {
-      "type": "object",
-      "properties": {
-        "disease": {
-          "type": "string",
-          "description": "disease filter"
-        },
-        "race": {
-          "type": "string",
-          "description": "race filter"
-        },
-        "isAlive": {
-          "type": "string",
-          "description": "dead or alive"
-        },
-        "survivalMonths": {
-          "type": "integer",
-          "format": "int32",
-          "description": "survival time in months"
-        },
-        "dxGrade": {
-          "type": "string",
-          "description": "grade of the disease to filter"
-        },
-        "treatOptions": {
-          "type": "string",
-          "description": "treatment option recieved"
+        }
+      },
+      "TreatmentOptions": {
+        "type": "object",
+        "properties": {
+          "disease": {
+            "type": "string",
+            "description": "disease filter"
+          },
+          "race": {
+            "type": "string",
+            "description": "race filter"
+          },
+          "isAlive": {
+            "type": "string",
+            "description": "dead or alive"
+          },
+          "survivalMonths": {
+            "type": "integer",
+            "format": "int32",
+            "description": "survival time in months"
+          },
+          "dxGrade": {
+            "type": "string",
+            "description": "grade of the disease to filter"
+          },
+          "treatOptions": {
+            "type": "string",
+            "description": "treatment option recieved"
+          }
         }
       }
     }
-  },
-  "externalDocs": {
-    "description": "Find out more about Swagger",
-    "url": "http://swagger.io"
   }
 }
