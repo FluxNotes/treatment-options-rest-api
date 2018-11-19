@@ -1,9 +1,9 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "FluxNotes Treatment Options Rest Client",
+    "description": "Treatment Options Rest API",
     "version": "1.0.0",
-    "title": "FluxNotes Treatment Options Rest Client"
+    "title": "Treatment Options Rest API"
   },
   "host": "localhost:3001",
   "basePath": "/api",
@@ -15,9 +15,8 @@
       "get": {
         "summary": "Get treatment options given filters",
         "description": "Return treatment options for the following filters",
-        "operationId": "findTreatmentOptionsByPatientStats",
+        "operationId": "findTreatmentOptionsByCriteria",
         "produces": [
-          "application/xml",
           "application/json"
         ],
         "parameters": [
@@ -29,16 +28,13 @@
             "required": true
           },
           {
-            "name": "Race",
+            "name": "Criteria",
             "in": "query",
-            "description": "race filter",
-            "type": "string"
-          },
-          {
-            "name": "dxGrade",
-            "in": "query",
-            "description": "grade of disease filter",
-            "type": "string"
+            "description": "Criteria as name/value pairs on object.",
+            "type": "object",
+            "additionalProperties": {
+                "$ref": "#/definitions/Criteria"
+            }
           }
         ],
         "responses": {
@@ -117,6 +113,32 @@
     }
   },
   "definitions": {
+    "Criteria": {
+      "type": "object",
+      "properties": {
+          "AgeAtDiagnosis": {
+              "type": "integer"
+          },
+          "Gender": {
+              "type": "string"
+          },
+          "Race": {
+              "type": "string"
+          }
+      },
+      "additionalProperties": {
+          "type": "string"
+      },
+      "example": {
+          "AgeAtDiagnosis": 54,
+          "Gender": "male",
+          "Race": "white",
+          "KIT": "positive",
+          "PDGFRA": "negative",
+          "Grade": "3",
+          "Stage": "IIIA"
+      }
+    },
     "TreatmentOptions": {
       "type": "object",
       "properties": {
