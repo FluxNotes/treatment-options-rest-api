@@ -15,6 +15,60 @@
     }
   ],
   "paths": {
+    "/criteriaForCondition": {
+      "get": {
+        "summary": "Get available criteria for condition",
+        "description": "Return criteria for condition",
+        "operationId": "getCriteriaForCondition",
+        "parameters": [
+          {
+            "name": "Condition",
+            "in": "query",
+            "required": true,
+            "description": "The condition that we are getting criterias for",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+           "200": {
+            "description": "array of available criteria for condition",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "default": "*"
+                },
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
+            }
+          },
+          "404": {
+            "description": "Condition not found",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "default": "*"
+                },
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
+            }
+          }
+        }
+      }
+    },
     "/treatmentOptions": {
       "get": {
         "summary": "Get treatment options given filters",
@@ -22,7 +76,7 @@
         "operationId": "findTreatmentOptionsByCriteria",
         "parameters": [
           {
-            "name": "Disease",
+            "name": "Condition",
             "in": "query",
             "required": true,
             "schema": {
@@ -52,6 +106,30 @@
                 }
               }
             },
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "default": "*"
+                },
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid filter: condition criteria required",
+            "headers": {
+              "Access-Control-Allow-Origin": {
+                "schema": {
+                  "type": "string",
+                  "default": "*"
+                },
+                "description": "Setting this header to `*` allows all origins. This is handy for public REST APIs that don't require authentication. But, according to the HTTP spec, browsers *WILL NOT* send cookies if this header is `*`, regardless of what you set `Access-Control-Allow-Credentials` to.\n"
+              }
+            }
+          },
+         "404": {
+            "description": "No treatment options found for specified criteria",
             "headers": {
               "Access-Control-Allow-Origin": {
                 "schema": {
@@ -97,9 +175,9 @@
       "TreatmentOptions": {
         "type": "object",
         "properties": {
-          "disease": {
+          "condition": {
             "type": "string",
-            "description": "disease filter"
+            "description": "condition"
           },
           "race": {
             "type": "string",
@@ -114,7 +192,7 @@
             "format": "int32",
             "description": "survival time in months"
           },
-          "dxGrade": {
+          "grade": {
             "type": "string",
             "description": "grade of the disease to filter"
           },
